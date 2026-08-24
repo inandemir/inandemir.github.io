@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SECURITY META HEADERS (ITEM 9 & ITEM 23 AUDIT FIXES) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none';">
+
+  <title>İnan Demir — Siber Güvenlik, SOC & Güvenlik Yazılımları</title>
+  <meta name="description" content="İnan Demir: Beykoz Üniversitesi Bilişim Güvenliği Teknolojisi, Microsoft AI Intern, Demirören Medya IT Deneyimi. Nexus-SuperApp, Nexus-System-Suite, PhishCheck geliştiricisi.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Syne (Display) + DM Sans (Body) + JetBrains Mono (Technical) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Syne"', 'sans-serif'],
+            sans: ['"DM Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            canvas: '#080c14',
+            surface: {
+              DEFAULT: '#0e1422',
+              elevated: '#131b2d',
+              border: '#202b42',
+              subtle: '#2c3b59'
+            },
+            amberAccent: {
+              DEFAULT: '#f59e0b',
+              dark: '#d97706',
+              light: '#fbbf24'
+            },
+            signalCyan: '#0ea5e9',
+            copy: {
+              primary: '#f8fafc',
+              secondary: '#cbd5e1',
+              muted: '#8193af',
+              dim: '#475569'
+            }
+          },
+          spacing: {
+            '2': '8px',
+            '4': '16px',
+            '6': '24px',
+            '8': '32px',
+            '12': '48px',
+            '16': '64px',
+            '24': '96px',
+            '32': '128px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080c14;
+      color: #cbd5e1;
+    }
+    ::selection {
+      background-color: #d97706;
+      color: #080c14;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080c14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #202b42;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased bg-canvas text-copy-secondary">
+
+  <!-- TOAST FEEDBACK NOTIFICATION -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-amberAccent-dark text-canvas px-6 py-4 rounded-sm shadow-2xl flex items-center gap-3 text-xs font-bold font-mono">
+      <svg class="w-5 h-5 text-canvas shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      <span id="toastMessage">İşlem başarıyla tamamlandı.</span>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="border-b border-surface-border bg-canvas/95 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <span class="w-8 h-8 rounded-sm bg-surface-elevated border border-surface-border flex items-center justify-center font-mono font-bold text-xs text-amberAccent group-hover:border-amberAccent transition-colors">
+          İD
+        </span>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-white tracking-tight text-sm group-hover:text-amberAccent transition-colors">İnan Demir</span>
+          <span class="font-mono text-[10px] text-copy-dim">Siber Güvenlik & SOC</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-copy-muted">
+        <a href="#about" class="hover:text-white transition-colors">Hakkımda</a>
+        <a href="#experience" class="hover:text-white transition-colors">Deneyim & Eğitim</a>
+        <a href="#capabilities" class="hover:text-white transition-colors">Yetkinlikler</a>
+        <a href="#flagship" class="hover:text-white transition-colors">Projeler</a>
+        <a href="#certifications" class="hover:text-white transition-colors">Sertifikalar</a>
+        <a href="#contact" class="hover:text-white font-semibold text-white">İletişim</a>
+      </nav>
+
+      <!-- Verified Action Links -->
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/inandemir" target="_blank" rel="noopener noreferrer" title="GitHub" class="p-2 rounded-sm bg-surface hover:bg-surface-elevated border border-surface-border text-copy-muted hover:text-white transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/inan-demir-117022378/" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="p-2 rounded-sm bg-surface hover:bg-surface-elevated border border-surface-border text-copy-muted hover:text-white transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-amberAccent hover:bg-amberAccent-dark text-canvas font-mono font-bold text-xs tracking-wider uppercase transition-colors">
+          <span>İletişime Geç</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-16 space-y-24">
+
+    <!-- HERO SECTION -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-4">
+      
+      <!-- Dominant Left Narrative -->
+      <div class="lg:col-span-8 space-y-6">
+        <div class="inline-flex items-center gap-2 font-mono text-[11px] text-amberAccent tracking-widest uppercase bg-surface px-3 py-1.5 border border-surface-border rounded-sm">
+          <span class="w-2 h-2 rounded-sm bg-amberAccent"></span>
+          <span>Beykoz Üniversitesi • Microsoft AI Intern • Demirören Medya IT</span>
+        </div>
+
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl text-white tracking-tight leading-[1.08]">
+          Siber Güvenlik, Altyapı Denetimi & <span class="text-amberAccent">SOC Komuta Sistemleri.</span>
+        </h1>
+
+        <p class="text-base text-copy-secondary max-w-2xl leading-relaxed">
+          Beykoz Üniversitesi Bilişim Güvenliği Teknolojisi öğrencisi. Demirören Medya'da 3000+ kullanıcı operasyonunda kazandığım saha dayanıklılığını, Microsoft AI programı ve Python tabanlı güvenlik otomasyonlarımla birleştiriyorum.
+        </p>
+
+        <!-- Fast Facts Strip -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 font-mono text-xs max-w-xl">
+          <div class="p-4 bg-surface border border-surface-border rounded-sm">
+            <div class="font-bold text-white text-sm">Demirören Medya</div>
+            <div class="text-copy-muted text-[11px] mt-1">3000+ Kullanıcı IT Desteği</div>
+          </div>
+          <div class="p-4 bg-surface border border-surface-border rounded-sm">
+            <div class="font-bold text-white text-sm">Microsoft</div>
+            <div class="text-copy-muted text-[11px] mt-1">Artificial Intelligence Intern</div>
+          </div>
+          <div class="p-4 bg-surface border border-surface-border rounded-sm">
+            <div class="font-bold text-amberAccent text-sm">Beykoz Üniversitesi</div>
+            <div class="text-copy-muted text-[11px] mt-1">Bilişim Güvenliği Teknolojisi</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs">
+          <a href="#flagship" class="px-6 py-3.5 bg-white hover:bg-amberAccent text-canvas font-bold rounded-sm transition-colors flex items-center gap-2">
+            <span>Açık Kaynak Projeleri İncele</span>
+            <span>↓</span>
+          </a>
+          <a href="mailto:dmrinan72@gmail.com" class="px-5 py-3.5 bg-surface hover:bg-surface-elevated text-white border border-surface-border rounded-sm transition-colors flex items-center gap-2">
+            <span>dmrinan72@gmail.com</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Focus Highlights Card -->
+      <div class="lg:col-span-4 bg-surface border border-surface-border p-6 sm:p-8 rounded-sm space-y-5">
+        <div class="border-b border-surface-border pb-3">
+          <div class="font-mono text-[10px] text-amberAccent uppercase tracking-widest font-bold">PROFİL ÖZETİ</div>
+          <h2 class="font-display font-bold text-lg text-white mt-1">İnan Demir</h2>
+        </div>
+
+        <div class="space-y-3 font-mono text-xs text-copy-secondary">
+          <div class="p-3 bg-canvas border border-surface-border rounded-sm">
+            <div class="text-white font-bold">Eğitim:</div>
+            <div class="text-amberAccent text-[11px] mt-0.5">Beykoz Üniversitesi — Bilişim Güvenliği Teknolojisi</div>
+          </div>
+          <div class="p-3 bg-canvas border border-surface-border rounded-sm">
+            <div class="text-white font-bold">Deneyim:</div>
+            <div class="text-copy-muted text-[11px] mt-0.5">• Microsoft — AI Intern<br>• Demirören Medya — IT Teknisyeni (10 Ay)</div>
+          </div>
+          <div class="p-3 bg-canvas border border-surface-border rounded-sm">
+            <div class="text-white font-bold">E-Posta:</div>
+            <a href="mailto:dmrinan72@gmail.com" class="text-amberAccent hover:underline text-[11px] mt-0.5 block">dmrinan72@gmail.com</a>
+          </div>
+        </div>
+
+        <a href="https://www.linkedin.com/in/inan-demir-117022378/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 bg-surface-elevated hover:bg-surface-subtle border border-surface-border text-white text-xs font-mono font-bold text-center block rounded-sm transition-colors">
+          LINKEDIN PROFİLİNİ GÖR ↗
+        </a>
+      </div>
+
+    </section>
+
+    <!-- SECTION 01: HAKKIMDA (EXECUTIVE ARCHITECTURAL REDESIGN) -->
+    <section id="about" class="pt-8 border-t border-surface-border space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-surface-border pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">01. Profesyonel Profil & Vizyon</h2>
+        <span class="font-mono text-xs text-copy-muted">SAHA DAYANIKLILIĞI VE AKADEMİK DERİNLİK</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Left: Core Narrative Block -->
+        <div class="lg:col-span-7 bg-surface p-6 sm:p-8 rounded-sm border border-surface-border flex flex-col justify-between space-y-6">
+          <div class="space-y-4 text-sm sm:text-base leading-relaxed text-copy-secondary">
+            <h3 class="font-display font-bold text-xl text-white">
+              Büyük Ölçekli Altyapı Deneyimi ile Proaktif Siber Savunma
+            </h3>
+            <p>
+              Beykoz Üniversitesi Bilişim Güvenliği Teknolojisi programındaki akademik çalışmalarımı, kurumsal sahada edindiğim yoğun operasyonel tecrübeyle birleştiriyorum.
+            </p>
+            <p>
+              <strong class="text-white font-semibold">Demirören Medya</strong> bünyesinde <strong class="text-white font-semibold">3000'in üzerinde kullanıcıya</strong> eşzamanlı IT ve sistem altyapı desteği sağlayarak; kriz anlarında soğukkanlı inisiyatif alma, hızlı sorun giderme ve büyük ölçekli kurumsal sistemleri kesintisiz ayakta tutma yetkinliği kazandım.
+            </p>
+            <p>
+              Bu operasyonel dayanıklılığı, <strong class="text-white font-semibold">Siber Güvenlik ve Altyapı Denetçisi</strong> perspektifimle harmanlayarak; Python ve SQL tabanlı otonom tehdit algılama sistemleri, SOC komuta merkezleri ve adli bilişim yazılımları geliştiriyorum.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-surface-border/80 flex flex-wrap items-center gap-4 text-xs font-mono text-copy-muted">
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-amberAccent rounded-full"></span> 3000+ Kullanıcı Operasyonu</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-signalCyan rounded-full"></span> Olay Müdahale (IR)</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> Yerel AI & RAG</span>
+          </div>
+        </div>
+
+        <!-- Right: 3 Key Strategic Pillars -->
+        <div class="lg:col-span-5 grid grid-cols-1 gap-4">
+          
+          <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs text-amberAccent font-bold">01 / SAHA VE OPERASYON</span>
+              <span class="font-mono text-[10px] text-copy-dim">DEMİRÖREN MEDYA</span>
+            </div>
+            <div class="font-display font-bold text-white text-sm">3000+ Kullanıcı Kurumsal Altyapı Desteği</div>
+            <p class="text-xs text-copy-muted leading-relaxed">Active Directory, Windows Server, Hyper-V, VMware sanallaştırma, DNS ve LAN-WAN ağlarında kesintisiz sistem operasyonu.</p>
+          </div>
+
+          <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs text-signalCyan font-bold">02 / SAVUNMA & FORENSICS</span>
+              <span class="font-mono text-[10px] text-copy-dim">TRYHACKME & ODTÜ</span>
+            </div>
+            <div class="font-display font-bold text-white text-sm">Windows Log & Registry Adli Bilişim</div>
+            <p class="text-xs text-copy-muted leading-relaxed">Event log analiziyle kaba kuvvet tespiti, otonom güvenlik duvarı kuralları ve taşınabilir SOC araçları geliştirme.</p>
+          </div>
+
+          <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs text-white font-bold">03 / YAPAY ZEKA & OTOMASYON</span>
+              <span class="font-mono text-[10px] text-copy-dim">MICROSOFT & İŞ BANKASI</span>
+            </div>
+            <div class="font-display font-bold text-white text-sm">Akıllı Aracılar & Çevrimdışı RAG</div>
+            <p class="text-xs text-copy-muted leading-relaxed">Microsoft AI Innovators stajı, PyTorch LSTM modelleri ve veri gizliliği korumalı yerel yapay zeka analiz mimarileri.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 02: DENEYİM VE EĞİTİM (EXPERIENCE & EDUCATION) -->
+    <section id="experience" class="pt-8 border-t border-surface-border space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-surface-border pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">02. İş Deneyimi & Eğitim Geçmişi</h2>
+        <span class="font-mono text-xs text-copy-muted">LINKEDIN DOĞRULANMIŞ KRONOLOJİ</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- WORK EXPERIENCE (7 COLS) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="font-mono text-xs font-bold text-white uppercase tracking-wider pb-2 border-b border-surface-border">
+            İŞ VE STAJ DENEYİMLERİ
+          </div>
+
+          <div class="space-y-4">
+            
+            <!-- Job 1: Microsoft -->
+            <div class="p-6 bg-surface border border-surface-border rounded-sm space-y-3">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <div class="space-y-0.5">
+                  <h3 class="font-display font-bold text-lg text-white">Artificial Intelligence Intern</h3>
+                  <div class="font-mono text-xs text-amberAccent font-semibold">Microsoft • Stajyer</div>
+                </div>
+                <span class="font-mono text-xs text-copy-muted">Haz 2026 — Ağu 2026</span>
+              </div>
+              <div class="font-mono text-[11px] text-copy-dim">İstanbul, Türkiye • Uzaktan</div>
+              <p class="text-xs text-copy-secondary leading-relaxed">
+                Microsoft AI Innovators Yaz Programı kapsamında gerçekleştirilen staj sürecinde, yapay zeka ve makine öğrenimi teknolojilerine odaklanarak yenilikçi proje ve akıllı araç geliştirme süreçlerinde yer alma.
+              </p>
+              <div class="flex flex-wrap gap-1.5 font-mono text-[10px] text-copy-muted pt-1">
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">Yapay Zeka</span>
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">Akıllı Aracılar</span>
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">Python</span>
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">Teknoloji Hizmetleri</span>
+              </div>
+            </div>
+
+            <!-- Job 2: Demirören Medya -->
+            <div class="p-6 bg-surface border border-surface-border rounded-sm space-y-3">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <div class="space-y-0.5">
+                  <h3 class="font-display font-bold text-lg text-white">IT Teknisyeni</h3>
+                  <div class="font-mono text-xs text-signalCyan font-semibold">Demirören Medya • Stajyer</div>
+                </div>
+                <span class="font-mono text-xs text-copy-muted">Eyl 2024 — Haz 2025 (10 ay)</span>
+              </div>
+              <p class="text-xs text-copy-secondary leading-relaxed">
+                3000'in üzerinde kullanıcıya eşzamanlı IT, altyapı ve teknik destek hizmeti. Active Directory, Windows Server, Hyper-V, VMware sanallaştırma, DNS, LAN-WAN ağ yönetimi, kriz anı sorun giderme ve donanım/yazılım çözümleri.
+              </p>
+              <div class="flex flex-wrap gap-1.5 font-mono text-[10px] text-copy-muted pt-1">
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">Active Directory</span>
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">Windows Server</span>
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">Hyper-V & VMware</span>
+                <span class="px-2 py-0.5 bg-canvas border border-surface-border rounded-sm text-white">LAN-WAN & DNS</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- EDUCATION (5 COLS) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="font-mono text-xs font-bold text-white uppercase tracking-wider pb-2 border-b border-surface-border">
+            EĞİTİM GEÇMİŞİ
+          </div>
+
+          <div class="space-y-4">
+            
+            <!-- School 1: Beykoz University -->
+            <div class="p-6 bg-surface border border-surface-border rounded-sm space-y-2.5">
+              <div class="flex justify-between items-baseline">
+                <h3 class="font-display font-bold text-base text-white">Beykoz Üniversitesi</h3>
+                <span class="font-mono text-[11px] text-amberAccent font-bold">Devam Ediyor</span>
+              </div>
+              <div class="font-mono text-xs text-amberAccent">Bilişim Güvenliği Teknolojisi</div>
+              <p class="text-xs text-copy-secondary leading-relaxed">
+                Ağ güvenliği, bilgi güvenliği temelleri, işletim sistemleri mimarisi, sızma testi ve kriptografi odaklı akademik program.
+              </p>
+            </div>
+
+            <!-- School 2: High School -->
+            <div class="p-6 bg-surface border border-surface-border rounded-sm space-y-2.5">
+              <h3 class="font-display font-bold text-base text-white">Abdurrahman ve Nermin Bilimli MTAL</h3>
+              <div class="font-mono text-xs text-copy-muted">Mesleki ve Teknik Anadolu Lisesi</div>
+              <p class="text-xs text-copy-secondary leading-relaxed">
+                Bilişim Teknolojileri, programlama temelleri (Python, C#, CSS) ve ağ altyapısı eğitimi.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 03: 5 ANA YETKİNLİK ALANI (BALANCED ELEGANT GRID) -->
+    <section id="capabilities" class="pt-8 border-t border-surface-border space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-surface-border pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">03. Uzmanlık ve Yetkinlik Alanları</h2>
+        <span class="font-mono text-xs text-copy-muted">5 TEMEL GÜVENLİK VE MÜHENDİSLİK DİSİPLİNİ</span>
+      </div>
+
+      <!-- Top Row: 3 Primary Capabilities -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+        
+        <!-- Skill 1 -->
+        <div class="p-6 bg-surface border border-surface-border hover:border-amberAccent rounded-sm space-y-3 transition-colors flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex justify-between items-baseline border-b border-surface-border pb-2">
+              <span class="text-amberAccent font-bold text-sm">01. SOC & Siber Savunma</span>
+              <span class="text-[10px] text-copy-dim">TryHackMe / ODTÜ</span>
+            </div>
+            <p class="text-copy-secondary text-xs leading-relaxed font-sans">
+              Windows Event Log analizi, adli bilişim (Registry forensics), başarısız RDP kaba kuvvet saldırı tespiti ve olay müdahale (Incident Response).
+            </p>
+          </div>
+          <div class="text-[11px] text-copy-muted pt-2 border-t border-surface-border/60">
+            Proje: <strong class="text-white">Nexus-SuperApp</strong>
+          </div>
+        </div>
+
+        <!-- Skill 2 -->
+        <div class="p-6 bg-surface border border-surface-border hover:border-signalCyan rounded-sm space-y-3 transition-colors flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex justify-between items-baseline border-b border-surface-border pb-2">
+              <span class="text-signalCyan font-bold text-sm">02. Kurumsal IT & Altyapı</span>
+              <span class="text-[10px] text-copy-dim">Demirören Medya</span>
+            </div>
+            <p class="text-copy-secondary text-xs leading-relaxed font-sans">
+              3000+ kullanıcı ölçeğinde Active Directory, Windows Server, Hyper-V, VMware sanallaştırma, DNS, LAN-WAN ağ yönetimi ve kriz çözümü.
+            </p>
+          </div>
+          <div class="text-[11px] text-copy-muted pt-2 border-t border-surface-border/60">
+            Araç: <strong class="text-white">Windows IT Toolkit (.bat)</strong>
+          </div>
+        </div>
+
+        <!-- Skill 3 -->
+        <div class="p-6 bg-surface border border-surface-border hover:border-purple-400 rounded-sm space-y-3 transition-colors flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex justify-between items-baseline border-b border-surface-border pb-2">
+              <span class="text-purple-400 font-bold text-sm">03. Yapay Zeka & Akıllı Aracılar</span>
+              <span class="text-[10px] text-copy-dim">Microsoft / İş Bankası</span>
+            </div>
+            <p class="text-copy-secondary text-xs leading-relaxed font-sans">
+              Yerel ve çevrimdışı çalışan RAG mimarileri, PyTorch LSTM zaman serisi modelleri, haber duygu analizi ve yerel LLM entegrasyonu.
+            </p>
+          </div>
+          <div class="text-[11px] text-copy-muted pt-2 border-t border-surface-border/60">
+            Proje: <strong class="text-white">FinAgent-LocalRAG</strong>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row: 2 Complementary Capabilities (Balanced Split 50/50) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+        
+        <!-- Skill 4 -->
+        <div class="p-6 bg-surface border border-surface-border hover:border-emerald-400 rounded-sm space-y-3 transition-colors flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex justify-between items-baseline border-b border-surface-border pb-2">
+              <span class="text-emerald-400 font-bold text-sm">04. Sızma Testi & Oltalama (Phishing) Analizi</span>
+              <span class="text-[10px] text-copy-dim">BTK Akademi / ODTÜ</span>
+            </div>
+            <p class="text-copy-secondary text-xs leading-relaxed font-sans">
+              HTTP güvenlik başlıkları (HSTS, CSP, X-Frame), alan adı WHOIS & DNS istihbaratı, açık dizin keşfi ve sosyal mühendislik savunması.
+            </p>
+          </div>
+          <div class="text-[11px] text-copy-muted pt-2 border-t border-surface-border/60">
+            Proje: <strong class="text-white">PhishCheck</strong>
+          </div>
+        </div>
+
+        <!-- Skill 5 -->
+        <div class="p-6 bg-surface border border-surface-border hover:border-white rounded-sm space-y-3 transition-colors flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex justify-between items-baseline border-b border-surface-border pb-2">
+              <span class="text-white font-bold text-sm">05. Güvenlik Otomasyonu & Taşınabilir Yazılım</span>
+              <span class="text-[10px] text-copy-dim">Python / Batch / C#</span>
+            </div>
+            <p class="text-copy-secondary text-xs leading-relaxed font-sans">
+              Sıfır dış bağımlılıkla çalışan taşınabilir (portable) Python güvenlik araçları, Windows güvenlik sıkılaştırma (hardening) ve SMBv1/DNS kuralları.
+            </p>
+          </div>
+          <div class="text-[11px] text-copy-muted pt-2 border-t border-surface-border/60">
+            Proje: <strong class="text-white">Nexus-System-Suite (v2.2 Titan Edition)</strong>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 04: LİSANSLAR VE SERTİFİKALAR (VERIFIED LICENSES & CERTIFICATIONS) -->
+    <section id="certifications" class="pt-8 border-t border-surface-border space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-surface-border pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">04. Lisanslar ve Sertifikalar</h2>
+        <span class="font-mono text-xs text-copy-muted">DOĞRULANABİLİR YETERLİLİK KİMLİKLERİ</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono text-xs">
+        
+        <!-- Cert 1 -->
+        <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-amberAccent font-bold">Advent of Cyber 2025</span>
+            <span class="text-[10px] text-copy-muted">TryHackMe</span>
+          </div>
+          <div class="text-[11px] text-copy-muted">Veriliş: Oca 2026 • Süre: Oca 2029</div>
+          <div class="p-2 bg-canvas border border-surface-border rounded-sm text-[10px] text-white">
+            Kimlik: <span class="text-amberAccent font-bold">THM-AHDWMXU3PN</span>
+          </div>
+          <div class="text-[10px] text-copy-dim">Yetenekler: SoC, Siber Güvenlik, Linux, Şifreleme</div>
+        </div>
+
+        <!-- Cert 2 -->
+        <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-signalCyan font-bold">Sızma Testine Giriş</span>
+            <span class="text-[10px] text-copy-muted">ODTÜ</span>
+          </div>
+          <div class="text-[11px] text-copy-muted">Veriliş: Ağu 2025</div>
+          <div class="p-2 bg-canvas border border-surface-border rounded-sm text-[10px] text-white break-all">
+            Kimlik: <span class="text-signalCyan font-bold">da281fdb-df1a-4064-929e-627f4a78216c</span>
+          </div>
+          <div class="text-[10px] text-copy-dim">Yetenekler: Ağ Güvenliği, Bilgi Güvenliği</div>
+        </div>
+
+        <!-- Cert 3 -->
+        <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-white font-bold">ProSchool Data & AI Class</span>
+            <span class="text-[10px] text-copy-muted">Türkiye İş Bankası</span>
+          </div>
+          <div class="text-[11px] text-copy-muted">Veriliş: Haz 2025</div>
+          <div class="p-2 bg-canvas border border-surface-border rounded-sm text-[10px] text-white">
+            Kimlik: <span class="text-white font-bold">50528</span>
+          </div>
+          <div class="text-[10px] text-copy-dim">Yetenekler: Yapay Zeka & Veri Analitiği</div>
+        </div>
+
+        <!-- Cert 4 -->
+        <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-white font-bold">ProSchool IT Class</span>
+            <span class="text-[10px] text-copy-muted">Türkiye İş Bankası</span>
+          </div>
+          <div class="text-[11px] text-copy-muted">Veriliş: Haz 2025</div>
+          <div class="p-2 bg-canvas border border-surface-border rounded-sm text-[10px] text-white">
+            Kimlik: <span class="text-white font-bold">50528</span>
+          </div>
+          <div class="text-[10px] text-copy-dim">Yetenekler: Ağ ve Bilişim Altyapısı</div>
+        </div>
+
+        <!-- Cert 5 -->
+        <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-emerald-400 font-bold">Sosyal Mühendislik ve Oltalama</span>
+            <span class="text-[10px] text-copy-muted">BTK Akademi</span>
+          </div>
+          <div class="text-[11px] text-copy-muted">Veriliş: Nis 2025</div>
+          <div class="p-2 bg-canvas border border-surface-border rounded-sm text-[10px] text-white">
+            Kimlik: <span class="text-emerald-400 font-bold">IK1h7oLx8I</span>
+          </div>
+          <div class="text-[10px] text-copy-dim">Yetenekler: Oltalama (Phishing) Analizi</div>
+        </div>
+
+        <!-- Cert 6 -->
+        <div class="p-5 bg-surface border border-surface-border rounded-sm space-y-2.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-emerald-400 font-bold">Ağ Temelleri</span>
+            <span class="text-[10px] text-copy-muted">BTK Akademi</span>
+          </div>
+          <div class="text-[11px] text-copy-muted">Veriliş: Nis 2025</div>
+          <div class="p-2 bg-canvas border border-surface-border rounded-sm text-[10px] text-white">
+            Kimlik: <span class="text-emerald-400 font-bold">jK1hKXL4G2</span>
+          </div>
+          <div class="text-[10px] text-copy-dim">Yetenekler: Ağ Protokolleri & Topoloji</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 05: FLAGSHIP PROJECTS (DETAILED REPOS) -->
+    <section id="flagship" class="pt-8 border-t border-surface-border space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-surface-border pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">05. Açık Kaynak Güvenlik Projeleri</h2>
+        <a href="https://github.com/inandemir?tab=repositories" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-amberAccent hover:underline">
+          TÜM GITHUB DEPOLARI ↗
+        </a>
+      </div>
+
+      <!-- PROJECT 01: Nexus-SuperApp -->
+      <article class="bg-surface border border-surface-border p-6 sm:p-10 rounded-sm space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-surface-border pb-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-xs px-2.5 py-1 bg-amberAccent/10 text-amberAccent border border-amberAccent/30 rounded-sm font-bold">SOC COMMAND CENTER</span>
+              <h3 class="font-display font-bold text-2xl sm:text-3xl text-white">Nexus-SuperApp (Ultimate Edition)</h3>
+            </div>
+            <p class="font-mono text-xs text-copy-muted">Platform: Windows (10/11) • Mimari: Portable (Kurulum Gerektirmez) • Şifreleme: Yerel SQLite Kasası</p>
+          </div>
+          <a href="https://github.com/inandemir/Nexus-SuperApp" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-surface-elevated hover:bg-amberAccent hover:text-canvas text-white font-mono text-xs font-bold border border-surface-border rounded-sm transition-colors">
+            GitHub Deposu ve Kodlar ↗
+          </a>
+        </div>
+
+        <div class="space-y-4 text-sm leading-relaxed">
+          <p class="text-copy-secondary">
+            Siber Güvenlik Uzmanları, Sistem Denetçileri (Auditor) ve Olay Müdahale (Incident Response) ekipleri için Python ile sıfırdan geliştirilmiş hepsi bir arada <strong class="text-white">"Siber Savunma ve Adli Bilişim"</strong> aracıdır.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs pt-2">
+            <div class="p-4 bg-canvas border border-surface-border rounded-sm space-y-2">
+              <div class="text-amberAccent font-bold">1. Otonom Firewall & Ağ Keşfi (Recon)</div>
+              <p class="text-copy-muted text-[11px] leading-relaxed">
+                Zararlı IP adreslerini tespit ederek Windows Güvenlik Duvarı'na tek tıkla engelleme (Block) kuralı yazar. Hedef IP istihbaratı, Port taraması, ARP tablosu okuma ve aktif TCP (Netstat) bağlantı analizi gerçekleştirir.
+              </p>
+            </div>
+
+            <div class="p-4 bg-canvas border border-surface-border rounded-sm space-y-2">
+              <div class="text-signalCyan font-bold">2. OSINT & Web Sniper</div>
+              <p class="text-copy-muted text-[11px] leading-relaxed">
+                Hedef domainlerde gizli dizin, subdomain ve HTTP Header analizi yapar. E-posta MX kayıtlarını ve web teknoloji altyapısını (Tech Stack) ifşa eder. Zafiyet avcıları için Google Dork üretir.
+              </p>
+            </div>
+
+            <div class="p-4 bg-canvas border border-surface-border rounded-sm space-y-2">
+              <div class="text-white font-bold">3. Zafiyet Denetimi (Auditor)</div>
+              <p class="text-copy-muted text-[11px] leading-relaxed">
+                Windows Event Loglarına sızarak başarısız RDP (Uzak Masaüstü) kaba kuvvet saldırılarını tespit eder. Başlangıç (Autorun) zararlılarını ve yerel yönetici (Admin) yetkilerini denetler.
+              </p>
+            </div>
+
+            <div class="p-4 bg-canvas border border-surface-border rounded-sm space-y-2">
+              <div class="text-emerald-400 font-bold">4. Dijital Adli Bilişim (Forensics)</div>
+              <p class="text-copy-muted text-[11px] leading-relaxed">
+                Windows Kayıt Defteri (Registry) üzerinden geçmiş USB bağlantılarını, sistem açılış kayıtlarını ve kritik adli kanıtları ayıklayarak yerel şifrelenmiş SQLite kasasında saklar.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- TWO ASYMMETRIC SECONDARY PROJECTS (7 vs 5) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- PROJECT 02: Nexus-System-Suite -->
+        <article class="lg:col-span-7 bg-surface border border-surface-border p-6 sm:p-8 rounded-sm space-y-5">
+          <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-surface-border pb-3">
+            <div>
+              <span class="font-mono text-[10px] text-amberAccent font-bold">v2.2 TITAN EDITION</span>
+              <h3 class="font-display font-bold text-xl text-white">Nexus-System-Suite</h3>
+            </div>
+            <span class="font-mono text-xs text-copy-muted">Python (Sıfır Dış Bağımlılık)</span>
+          </div>
+
+          <p class="text-xs text-copy-secondary leading-relaxed">
+            Sistem Yöneticileri ve Siber Güvenlik uzmanları için geliştirilmiş, gerçek zamanlı sistem istihbaratı, güvenlik sıkılaştırma (hardening) ve IT bakım aracı.
+          </p>
+
+          <div class="space-y-2 font-mono text-[11px] text-copy-muted">
+            <div class="p-3 bg-canvas border border-surface-border rounded-sm">
+              <span class="text-white font-bold">Güvenlik Sıkılaştırma:</span> SMBv1 kapatma, Secure DNS Enforcer (8.8.8.8), Hosts dosyası denetimi, USB AutoRun kapatma.
+            </div>
+            <div class="p-3 bg-canvas border border-surface-border rounded-sm">
+              <span class="text-white font-bold">Canlı İstihbarat:</span> IP Geo-Tracking (Public IP, Şehir/Ülke, ISP), donanım kapasite analizi.
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <a href="https://github.com/inandemir/Nexus-System-Suite" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-surface-elevated hover:bg-white hover:text-canvas text-white font-mono text-xs font-semibold rounded-sm transition-colors">
+              GitHub Reposunu İncele ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- PROJECT 03: PhishCheck -->
+        <article class="lg:col-span-5 bg-surface border border-surface-border p-6 sm:p-8 rounded-sm space-y-5">
+          <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-surface-border pb-3">
+            <div>
+              <span class="font-mono text-[10px] text-signalCyan font-bold">WEB SECURITY & OSINT</span>
+              <h3 class="font-display font-bold text-xl text-white">PhishCheck</h3>
+            </div>
+            <span class="font-mono text-xs text-copy-muted">Python 3</span>
+          </div>
+
+          <p class="text-xs text-copy-secondary leading-relaxed">
+            Web sitelerinin güvenlik duruşunu (security posture) ve oltalama potansiyelini analiz eden etik penetrasyon testi ve araştırma aracı.
+          </p>
+
+          <div class="bg-canvas p-3 border border-surface-border font-mono text-[11px] space-y-1 rounded-sm text-copy-muted">
+            <div>• Domain yaşı ve WHOIS sorgulaması</div>
+            <div>• IP adresi ve coğrafi konum tespiti</div>
+            <div>• HTTPS & eksik HTTP güvenlik başlıkları (HSTS, CSP)</div>
+            <div>• Açık dizin keşfi (/admin, /backup, /uploads)</div>
+          </div>
+
+          <div class="pt-2">
+            <a href="https://github.com/inandemir/phishcheck" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-surface-elevated hover:bg-white hover:text-canvas text-white font-mono text-xs font-semibold rounded-sm transition-colors">
+              GitHub Reposunu İncele ↗
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- PROJECT 04: FinAgent-LocalRAG -->
+      <article class="bg-surface border border-surface-border p-6 sm:p-8 rounded-sm space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-surface-border pb-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-xs px-2.5 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/30 rounded-sm font-bold">LOCAL AI & RAG</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-white">FinAgent-LocalRAG</h3>
+            </div>
+            <p class="font-mono text-xs text-copy-muted">Yerel Yapay Zeka & Çevrimdışı Borsa Tahmin Terminali</p>
+          </div>
+          <a href="https://github.com/inandemir/FinAgent-LocalRAG" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-surface-elevated hover:bg-white hover:text-canvas text-white font-mono text-xs font-bold border border-surface-border rounded-sm transition-colors">
+            GitHub Deposu ↗
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 text-xs font-mono">
+          <div class="lg:col-span-7 space-y-3 font-sans text-xs leading-relaxed text-copy-secondary">
+            <p>
+              FinAgent-LocalRAG, <strong class="text-white">tamamen çevrimdışı (offline) çalışan</strong> ve veri gizliliğini koruyan yapay zeka tabanlı analiz asistanıdır.
+            </p>
+            <p>
+              Sistem; sayısal zaman serisi tahminleri (<strong class="text-white font-mono">PyTorch LSTM</strong>), haber duygu analizi (<strong class="text-white font-mono">Kaggle NLP</strong>) ve yerel dil modellerini (<strong class="text-white font-mono">Qwen2.5 LLM</strong>) bir araya getirerek kişiselleştirilmiş RAG raporları üretir.
+            </p>
+          </div>
+
+          <div class="lg:col-span-5 bg-canvas p-4 rounded-sm border border-surface-border space-y-2">
+            <div class="text-amberAccent font-bold text-[11px] border-b border-surface-border pb-1">KULLANILAN TEKNOLOJİLER</div>
+            <div class="text-copy-muted space-y-1 text-[11px]">
+              <div>• Python 3.10+, PyTorch 2.0+</div>
+              <div>• Flask 3.0 & SSE Stream Akışı</div>
+              <div>• Yahoo Finance API & Yerel RAG Sentezleyici</div>
+              <div>• Foundry Local LLM Entegrasyonu (Qwen)</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- TWO ADDITIONAL TOOLS ROW -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- PROJECT 05: Windows IT Toolkit -->
+        <div class="bg-surface border border-surface-border p-6 rounded-sm space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-baseline border-b border-surface-border pb-2">
+            <span class="font-bold text-white text-sm">Windows_IT_Toolkit.bat</span>
+            <span class="text-copy-muted text-[10px]">Windows Batch (.bat)</span>
+          </div>
+          <p class="text-copy-muted text-[11px] leading-relaxed font-sans">
+            Tek bir BAT dosyasında 25+ Windows yönetim komutu! Ağ yapılandırması sıfırlama, güvenlik duvarı kuralları, disk ve servis analizleri içeren pratik IT operasyon aracı.
+          </p>
+          <a href="https://github.com/inandemir/Windows_IT_Toolkit.bat" target="_blank" rel="noopener noreferrer" class="text-amberAccent hover:underline inline-block pt-1">
+            Depoyu GitHub'da Aç ↗
+          </a>
+        </div>
+
+        <!-- PROJECT 06: Escape The Prison -->
+        <div class="bg-surface border border-surface-border p-6 rounded-sm space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-baseline border-b border-surface-border pb-2">
+            <span class="font-bold text-white text-sm">Escape The Prison</span>
+            <span class="text-copy-muted text-[10px]">C# (.NET)</span>
+          </div>
+          <p class="text-copy-muted text-[11px] leading-relaxed font-sans">
+            C# mimarisiyle geliştirilmiş interaktif mantık, simülasyon ve yazılım projesi.
+          </p>
+          <a href="https://github.com/inandemir/Espace-The-Prison-main" target="_blank" rel="noopener noreferrer" class="text-amberAccent hover:underline inline-block pt-1">
+            Depoyu GitHub'da Aç ↗
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 06: MEDIUM PUBLICATIONS -->
+    <section id="publications" class="pt-8 border-t border-surface-border space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-surface-border pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">06. Teknik Yayınlar & Medium</h2>
+        <span class="font-mono text-xs text-copy-muted">@inandemir</span>
+      </div>
+
+      <div class="bg-surface border border-surface-border p-6 sm:p-8 rounded-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="space-y-2 max-w-2xl">
+          <div class="font-mono text-xs text-amberAccent">Medium Makaleleri & İncelemeler</div>
+          <h3 class="font-display font-bold text-xl text-white">Siber Güvenlik, SOC Mimarileri ve Güvenlik Aracı Geliştirme</h3>
+          <p class="text-xs text-copy-secondary leading-relaxed font-sans">
+            Geliştirdiğim açık kaynak güvenlik araçlarının teknik mimarileri, adli bilişim teknikleri ve zafiyet analizleri üzerine hazırladığım makaleleri Medium profilimden okuyabilirsiniz.
+          </p>
+        </div>
+
+        <a href="https://medium.com/@inandemir" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-surface-elevated hover:bg-amberAccent hover:text-canvas text-white font-mono font-bold text-xs rounded-sm border border-surface-border transition-colors shrink-0">
+          MEDİUM'DA OKU ↗
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 07: CONTACT FORM & PROFILES -->
+    <section id="contact" class="pt-8 border-t border-surface-border space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-surface-border pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">07. İletişim & Bağlantı</h2>
+        <span class="font-mono text-xs text-copy-muted">DOĞRUDAN MESAJ GÖNDERİN</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Official Profile Links -->
+        <div class="lg:col-span-5 bg-surface border border-surface-border p-6 sm:p-8 rounded-sm space-y-6">
+          <div class="space-y-2">
+            <h3 class="font-display font-bold text-xl text-white">Resmi İletişim Kanalları</h3>
+            <p class="text-xs text-copy-secondary leading-relaxed font-sans">
+              İş fırsatları, siber güvenlik projeleri veya teknik iş birlikleri için aşağıdaki kanallardan doğrudan bana ulaşabilirsiniz.
+            </p>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs">
+            <!-- Email -->
+            <a href="mailto:dmrinan72@gmail.com" class="p-3.5 bg-canvas border border-surface-border hover:border-amberAccent text-white flex justify-between items-center rounded-sm transition-colors group">
+              <div>
+                <div class="text-copy-muted text-[10px]">Doğrudan E-Posta</div>
+                <div class="text-amberAccent font-bold">dmrinan72@gmail.com</div>
+              </div>
+              <span class="text-copy-muted group-hover:text-white">✉</span>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/inan-demir-117022378/" target="_blank" rel="noopener noreferrer" class="p-3.5 bg-canvas border border-surface-border hover:border-amberAccent text-white flex justify-between items-center rounded-sm transition-colors group">
+              <div>
+                <div class="text-copy-muted text-[10px]">LinkedIn Profili</div>
+                <div class="text-white font-semibold">/in/inan-demir-117022378</div>
+              </div>
+              <span class="text-copy-muted group-hover:text-white">↗</span>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/inandemir" target="_blank" rel="noopener noreferrer" class="p-3.5 bg-canvas border border-surface-border hover:border-amberAccent text-white flex justify-between items-center rounded-sm transition-colors group">
+              <div>
+                <div class="text-copy-muted text-[10px]">GitHub Depoları</div>
+                <div class="text-white font-semibold">github.com/inandemir</div>
+              </div>
+              <span class="text-copy-muted group-hover:text-white">↗</span>
+            </a>
+
+            <!-- Medium -->
+            <a href="https://medium.com/@inandemir" target="_blank" rel="noopener noreferrer" class="p-3.5 bg-canvas border border-surface-border hover:border-amberAccent text-white flex justify-between items-center rounded-sm transition-colors group">
+              <div>
+                <div class="text-copy-muted text-[10px]">Medium Blog</div>
+                <div class="text-white font-semibold">@inandemir</div>
+              </div>
+              <span class="text-copy-muted group-hover:text-white">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Direct Message Action Form -->
+        <div class="lg:col-span-7 bg-surface border border-surface-border p-6 sm:p-8 rounded-sm">
+          <h3 class="font-display font-bold text-xl text-white mb-2">E-Posta Gönderme Formu</h3>
+          <p class="text-xs text-copy-muted mb-6 font-sans">
+            Formu doldurduğunuzda doğrudan <strong class="text-amberAccent">dmrinan72@gmail.com</strong> adresine iletilmek üzere e-posta uygulamanız açılacaktır.
+          </p>
+
+          <form onsubmit="handleSendMail(event)" class="space-y-4 font-mono text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="block text-copy-muted font-medium">Adınız & Soyadınız *</label>
+                <input type="text" id="senderName" required placeholder="Ad Soyad" class="w-full px-3.5 py-2.5 bg-canvas border border-surface-border text-white placeholder-copy-dim focus:outline-none focus:border-amberAccent rounded-sm">
+              </div>
+              <div class="space-y-1">
+                <label class="block text-copy-muted font-medium">E-Posta Adresiniz *</label>
+                <input type="email" id="senderEmail" required placeholder="ad@sirket.com" class="w-full px-3.5 py-2.5 bg-canvas border border-surface-border text-white placeholder-copy-dim focus:outline-none focus:border-amberAccent rounded-sm">
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="block text-copy-muted font-medium">Konu Başlığı *</label>
+              <input type="text" id="mailSubject" required placeholder="Siber Güvenlik / Proje Talebi / İş Birliği" class="w-full px-3.5 py-2.5 bg-canvas border border-surface-border text-white placeholder-copy-dim focus:outline-none focus:border-amberAccent rounded-sm">
+            </div>
+
+            <div class="space-y-1">
+              <label class="block text-copy-muted font-medium">Mesajınız *</label>
+              <textarea id="mailMessage" required rows="4" placeholder="Mesajınızın detayları..." class="w-full px-3.5 py-2.5 bg-canvas border border-surface-border text-white placeholder-copy-dim focus:outline-none focus:border-amberAccent rounded-sm"></textarea>
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button type="submit" class="px-6 py-3 bg-amberAccent hover:bg-amberAccent-dark text-canvas font-bold rounded-sm transition-colors">
+                E-POSTAYI İLET
+              </button>
+              <button type="button" onclick="copyContactEmail()" class="px-4 py-3 bg-canvas border border-surface-border hover:border-copy-muted text-copy-secondary rounded-sm transition-colors">
+                dmrinan72@gmail.com KOPYALA
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (CLEAN, NO PRIVACY/TERMS LINKS) -->
+  <footer class="border-t border-surface-border bg-canvas py-10 font-mono text-xs text-copy-muted">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="text-white font-bold">İnan Demir</span> • Siber Güvenlik ve SOC Sistemleri © 2026
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/inandemir" target="_blank" rel="noopener noreferrer" class="hover:text-white">GitHub</a>
+        <a href="https://www.linkedin.com/in/inan-demir-117022378/" target="_blank" rel="noopener noreferrer" class="hover:text-white">LinkedIn</a>
+        <a href="https://medium.com/@inandemir" target="_blank" rel="noopener noreferrer" class="hover:text-white">Medium</a>
+        <a href="mailto:dmrinan72@gmail.com" class="text-amberAccent hover:underline">dmrinan72@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+      
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      }, 4000);
+    }
+
+    function handleSendMail(e) {
+      e.preventDefault();
+      const name = document.getElementById('senderName').value.trim();
+      const email = document.getElementById('senderEmail').value.trim();
+      const subject = document.getElementById('mailSubject').value.trim();
+      const message = document.getElementById('mailMessage').value.trim();
+
+      const myEmail = "dmrinan72@gmail.com";
+      const mailBody = `Ad Soyad: ${name}\nE-Posta: ${email}\n\nMesaj:\n${message}`;
+      
+      showToast("E-posta istemciniz açılıyor...");
+      const mailtoUrl = `mailto:${myEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailBody)}`;
+      window.location.href = mailtoUrl;
+    }
+
+    function copyContactEmail() {
+      const email = "dmrinan72@gmail.com";
+      navigator.clipboard.writeText(email).then(() => {
+        showToast("E-posta panoya kopyalandı: " + email);
+      }).catch(() => {
+        showToast("E-posta: " + email);
+      });
+    }
+  </script>
+</body>
+</html>
