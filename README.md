@@ -41,5 +41,43 @@ Beykoz Üniversitesi Bilişim Güvenliği Teknolojisi bölümü öğrencisi; sib
 │
 └── [2024.09 - 2025.06] Demirören Medya
     └── IT Teknisyeni (10 Ay)
+
+
+🎓 Akademik Eğitim
+🎓 Beykoz Üniversitesi — Bilişim Güvenliği Teknolojisi (Öğrenime Devam Ediyor)
+🏫 Abdurrahman ve Nermin Bilimli MTAL — Bilişim Teknolojileri (Python, C#, Ağ Temelleri)
+📜 Doğrulanabilir Lisanslar & Sertifikalar
+🔐 TryHackMe — Advent of Cyber 2025 [Kimlik: THM-AHDWMXU3PN]
+🎯 Orta Doğu Teknik Üniversitesi (ODTÜ) — Sızma Testine Giriş [Kimlik: da281fdb-df1a-4064-929e-627f4a78216c]
+🤖 Türkiye İş Bankası — ProSchool Data & AI Class [Kimlik: 50528]
+💻 Türkiye İş Bankası — ProSchool IT Class [Kimlik: 50528]
+🎣 BTK Akademi — Sosyal Mühendislik ve Oltalama [Kimlik: IK1h7oLx8I]
+🌐 BTK Akademi — Ağ Temelleri [Kimlik: jK1hKXL4G2]
+🖥️ BTK Akademi — Bilgi Teknolojilerine Giriş [Kimlik: pKmhKdxbMe]
+🛠️ Teknik Yetkinlikler
+yaml
+
+
+Programlama & Betik:
+  - Python 3 (AsyncIO, Sockets, Requests, Subprocess, PyTorch)
+  - Windows Batch (.bat), PowerShell
+  - C# / .NET, SQL
+Siber Savunma & SOC:
+  - Windows Event Log Analizi & Brute-Force Tespiti
+  - Registry Forensics (USB, Prefetch, Autorun)
+  - Sistem Sıkılaştırma (SMBv1, DNS, Firewall Hardening)
+Ağ & Web Güvenliği:
+  - Oltalama (Phishing) Analizi & OSINT Alan Adı İncelemesi
+  - HTTP Güvenlik Başlıkları (HSTS, CSP, X-Frame-Options)
+  - Active Directory, Hyper-V, VMware, DNS, LAN-WAN
+Yapay Zeka:
+  - Yerel / Çevrimdışı RAG (Retrieval-Augmented Generation)
+  - PyTorch LSTM Zaman Serisi Tahminleri & Qwen Local LLM
+📬 İletişim
+✉️ E-Posta: 
+dmrinan72@gmail.com
+💼 LinkedIn: linkedin.com/in/inan-demir-117022378
+✍️ Medium: medium.com/@inandemir
+🌐 GitHub: github.com/inandemir
         └── 3000+ kullanıcıya eşzamanlı IT & altyapı desteği.
         └── Active Directory, Windows Server, Hyper-V, VMware, DNS, LAN-WAN yönetimi.
