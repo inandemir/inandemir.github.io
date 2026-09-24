@@ -1143,32 +1143,56 @@
       }
     });
 
-    // Run Telemetry Sequence on Load
+    // Run Telemetry Sequence on Load (Cinematic 5.2s duration)
     window.addEventListener('DOMContentLoaded', () => {
       const pBar = document.getElementById('splashProgressBar');
       const pText = document.getElementById('splashProgressText');
       
       const steps = [
-        { id: 'logLine1', progress: 25, delay: 200 },
-        { id: 'logLine2', progress: 55, delay: 600 },
-        { id: 'logLine3', progress: 80, delay: 1000 },
-        { id: 'logLine4', progress: 100, delay: 1400 },
+        { id: 'logLine1', progress: 28, delay: 600 },
+        { id: 'logLine2', progress: 54, delay: 1600 },
+        { id: 'logLine3', progress: 78, delay: 2600 },
+        { id: 'logLine4', progress: 100, delay: 3700 },
       ];
+
+      // Smooth percentage counter
+      let currentProgress = 0;
+      let targetProgress = 0;
+      const progressInterval = setInterval(() => {
+        if (splashDismissed) {
+          clearInterval(progressInterval);
+          return;
+        }
+        if (currentProgress < targetProgress) {
+          currentProgress++;
+          if (pBar) pBar.style.width = currentProgress + '%';
+          if (pText) pText.textContent = currentProgress + '%';
+        }
+      }, 25);
 
       steps.forEach(step => {
         setTimeout(() => {
           if (splashDismissed) return;
+          targetProgress = step.progress;
           const el = document.getElementById(step.id);
           if (el) el.classList.remove('opacity-0');
-          if (pBar) pBar.style.width = step.progress + '%';
-          if (pText) pText.textContent = step.progress + '%';
         }, step.delay);
       });
 
-      // Auto dismiss after complete check
+      // Status update at 100%
+      setTimeout(() => {
+        if (splashDismissed) return;
+        const progressLabel = document.querySelector('#introSplash span.text-copy-dim');
+        if (progressLabel) {
+          progressLabel.textContent = 'GÜVENLİ BAĞLANTI ONAYLANDI. SİSTEME GİRİLİYOR...';
+          progressLabel.classList.add('text-emerald-400');
+        }
+      }, 4200);
+
+      // Auto dismiss after complete cinematic check (5.2s total)
       setTimeout(() => {
         dismissIntroSplash();
-      }, 2600);
+      }, 5200);
     });
   </script>
 </body>
