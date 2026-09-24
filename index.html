@@ -166,7 +166,111 @@
     }
   </style>
 </head>
-<body class="font-sans antialiased bg-canvas text-copy-secondary">
+<body class="font-sans antialiased bg-canvas text-copy-secondary overflow-x-hidden">
+
+  <!-- CYBERSECURITY HUD INTRO SPLASH SCREEN -->
+  <div id="introSplash" class="fixed inset-0 z-50 bg-[#06090f] flex flex-col justify-between p-6 sm:p-12 transition-opacity duration-700 font-mono text-xs">
+    
+    <!-- Top Telemetry Header -->
+    <div class="flex items-center justify-between border-b border-surface-border pb-4">
+      <div class="flex items-center gap-3">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-copy-primary font-bold tracking-wider uppercase text-[11px]">SOC_TELEMETRY // ID: INAN_DEMIR</span>
+        <span class="hidden sm:inline text-copy-dim text-[10px]">| NODE: ISTANBUL, TR</span>
+      </div>
+      <button onclick="dismissIntroSplash()" class="px-3 py-1 bg-surface hover:bg-surface-elevated text-copy-secondary hover:text-white border border-surface-border rounded-sm transition-colors text-[11px] flex items-center gap-1.5 cursor-pointer">
+        <span>GEÇİŞ YAP</span>
+        <span class="text-amberAccent">[ESC]</span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <!-- Center Identity & Diagnostic Log Box -->
+    <div class="max-w-3xl mx-auto w-full my-auto space-y-6 py-6">
+      
+      <!-- Brand & Title -->
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-surface-elevated border border-surface-border rounded-sm text-amberAccent text-[10px] uppercase font-bold tracking-widest">
+          <span>● SİBER SAVUNMA & ALTYAPI DENETİMİ</span>
+        </div>
+        <h1 class="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+          İnan Demir
+        </h1>
+        <p class="font-sans text-xs sm:text-sm text-copy-secondary max-w-xl">
+          Beykoz Üniversitesi Bilişim Güvenliği • Microsoft AI Intern • Demirören Medya 3000+ IT Operasyonu
+        </p>
+      </div>
+
+      <!-- Telemetry Sequence Monitor -->
+      <div class="bg-surface/80 border border-surface-border rounded-sm p-4 sm:p-5 space-y-2.5 font-mono text-[11px]">
+        <div id="logLine1" class="flex items-center gap-2 text-copy-secondary opacity-0 transition-opacity duration-300">
+          <span class="text-signalCyan font-bold">[01/04]</span>
+          <span>KİMLİK: Beykoz Ünv. Bilişim Güvenliği Teknolojisi</span>
+          <span class="text-emerald-400 font-bold ml-auto">[DOĞRULANDI]</span>
+        </div>
+        <div id="logLine2" class="flex items-center gap-2 text-copy-secondary opacity-0 transition-opacity duration-300">
+          <span class="text-amberAccent font-bold">[02/04]</span>
+          <span>SAHA OPERASYONU: Demirören Medya 3000+ Uç Nokta IT & Ağ Yönetimi</span>
+          <span class="text-emerald-400 font-bold ml-auto">[AKTİF]</span>
+        </div>
+        <div id="logLine3" class="flex items-center gap-2 text-copy-secondary opacity-0 transition-opacity duration-300">
+          <span class="text-purple-400 font-bold">[03/04]</span>
+          <span>SAVUNMA CEPHANESİ: Nexus-SuperApp, Nexus-System-Suite, PhishCheck</span>
+          <span class="text-emerald-400 font-bold ml-auto">[HAZIR]</span>
+        </div>
+        <div id="logLine4" class="flex items-center gap-2 text-copy-secondary opacity-0 transition-opacity duration-300">
+          <span class="text-emerald-400 font-bold">[04/04]</span>
+          <span>YAPAY ZEKA: Microsoft AI Innovators & Çevrimdışı RAG Mimarisi</span>
+          <span class="text-emerald-400 font-bold ml-auto">[YÜKLENDİ]</span>
+        </div>
+      </div>
+
+      <!-- Live Credentials Badges -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10px] text-copy-muted">
+        <div class="p-2 bg-canvas border border-surface-border rounded-sm flex items-center justify-between">
+          <span>TryHackMe</span>
+          <span class="text-amberAccent font-bold">THM-AoC25</span>
+        </div>
+        <div class="p-2 bg-canvas border border-surface-border rounded-sm flex items-center justify-between">
+          <span>ODTÜ Sızma</span>
+          <span class="text-signalCyan font-bold">CERTIFIED</span>
+        </div>
+        <div class="p-2 bg-canvas border border-surface-border rounded-sm flex items-center justify-between">
+          <span>İş Bankası AI</span>
+          <span class="text-white font-bold">CLASS 50528</span>
+        </div>
+        <div class="p-2 bg-canvas border border-surface-border rounded-sm flex items-center justify-between">
+          <span>BTK Akademi</span>
+          <span class="text-emerald-400 font-bold">PHISH-SEC</span>
+        </div>
+      </div>
+
+      <!-- Progress Bar & Action -->
+      <div class="space-y-3 pt-2">
+        <div class="flex items-center justify-between text-[11px]">
+          <span class="text-copy-dim">SİSTEM BAĞLANTISI KURULUYOR...</span>
+          <span id="splashProgressText" class="text-amberAccent font-bold">0%</span>
+        </div>
+        <div class="w-full h-1 bg-surface-border rounded-full overflow-hidden">
+          <div id="splashProgressBar" class="h-full bg-gradient-to-r from-amberAccent to-signalCyan w-0 transition-all duration-300"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Actions & Status -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-surface-border pt-4">
+      <div class="text-[10px] text-copy-dim flex items-center gap-4">
+        <span>SECURITY PROTOCOL: ZERO-TRUST</span>
+        <span class="hidden sm:inline">HSTS & CSP ACTIVE</span>
+      </div>
+      <button onclick="dismissIntroSplash()" class="w-full sm:w-auto px-6 py-2.5 bg-amberAccent hover:bg-amberAccent-dark text-canvas font-bold text-xs uppercase tracking-wider rounded-sm transition-colors cursor-pointer flex items-center justify-center gap-2">
+        <span>SİSTEME GİRİŞ YAP</span>
+        <span>→</span>
+      </button>
+    </div>
+
+  </div>
 
   <!-- TOAST FEEDBACK NOTIFICATION -->
   <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
@@ -1017,6 +1121,55 @@
         showToast("E-posta: " + email);
       });
     }
+
+    // INTRO SPLASH HUD SEQUENCE CONTROLLER
+    let splashDismissed = false;
+    function dismissIntroSplash() {
+      if (splashDismissed) return;
+      splashDismissed = true;
+      const splash = document.getElementById('introSplash');
+      if (splash) {
+        splash.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          splash.style.display = 'none';
+        }, 700);
+      }
+    }
+
+    // Keyboard shortcut to skip intro
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+        dismissIntroSplash();
+      }
+    });
+
+    // Run Telemetry Sequence on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      const pBar = document.getElementById('splashProgressBar');
+      const pText = document.getElementById('splashProgressText');
+      
+      const steps = [
+        { id: 'logLine1', progress: 25, delay: 200 },
+        { id: 'logLine2', progress: 55, delay: 600 },
+        { id: 'logLine3', progress: 80, delay: 1000 },
+        { id: 'logLine4', progress: 100, delay: 1400 },
+      ];
+
+      steps.forEach(step => {
+        setTimeout(() => {
+          if (splashDismissed) return;
+          const el = document.getElementById(step.id);
+          if (el) el.classList.remove('opacity-0');
+          if (pBar) pBar.style.width = step.progress + '%';
+          if (pText) pText.textContent = step.progress + '%';
+        }, step.delay);
+      });
+
+      // Auto dismiss after complete check
+      setTimeout(() => {
+        dismissIntroSplash();
+      }, 2600);
+    });
   </script>
 </body>
 </html>
